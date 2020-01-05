@@ -56,6 +56,18 @@ public class Philosopher implements Runnable{
         Thread.currentThread().sleep((int)(10000.0 * Math.random()));
     }
 
+    public String getForksInHands(){
+        String forksInHands = "(";
+        if(rightFork.getHoldenById() == philosopherId){
+            forksInHands += rightFork.getForkId();
+        }
+        if(leftFork.getHoldenById() == philosopherId){
+            forksInHands += leftFork.getForkId();
+        }
+        forksInHands += ")";
+        return forksInHands;
+    }
+
     public State getPhilosopherState(){
         return this.philosopherState;
     }

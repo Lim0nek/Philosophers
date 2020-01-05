@@ -4,6 +4,7 @@ public class Fork {
 
     private Boolean isAvialableToUse;
     private int forkId;
+    private int holdenById = -1;
 
     public Fork(int forkId){
         isAvialableToUse = true;
@@ -17,6 +18,9 @@ public class Fork {
     public int getForkId(){
         return this.forkId;
     }
+    public int getHoldenById(){
+        return this.holdenById;
+    }
 
     public synchronized void pickUpFork(Philosopher philosopher) throws InterruptedException{
         while (!isAvialableToUse){
@@ -25,10 +29,12 @@ public class Fork {
             wait();
         }
         isAvialableToUse = false;
+        holdenById = philosopher.getPhilosopherId();
     }
 
     public synchronized void putDownFork(){
         isAvialableToUse = true;
+        holdenById = -1;
         notify();
     }
 
